@@ -6,7 +6,7 @@
       :id="style['menu']"
       :style="{ top: pos.top+'px', left: pos.left+'px' }"
     >
-      <ul 
+      <ul
         v-for="(group, index) in groups"
         :key="index"
       >
@@ -35,7 +35,7 @@ export default defineComponent({
     },
     groups: Array as PropType<MenuItem[][]>
   },
-  emits: ['click-item', 'click-button'],
+  emits: ['click-item'],
   setup (props, context) {
     const show = ref(false)
     const style = useCssModule()
@@ -58,7 +58,6 @@ export default defineComponent({
     const onClick = (name: string) => {
       close()
       context.emit('click-item', name)
-      context.emit('click-button', name)
     }
 
     return {

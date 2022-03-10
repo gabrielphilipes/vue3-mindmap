@@ -38,11 +38,14 @@ export const add = (id: string, name: string | Data): IsMdata => {
   emitter.emit('changeNode', id)
   return d
 }
+
 export const del = (id: string): void => {
+  console.log('del',id)
   mmdata.delete(id)
   afterOperation()
 }
 export const delOne = (id: string): void => {
+  console.log('delOne',id)
   mmdata.deleteOne(id)
   afterOperation()
 }

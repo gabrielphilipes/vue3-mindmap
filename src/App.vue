@@ -2,6 +2,8 @@
   <div class="container">
     <div class="left-top">
       <a href="https://github.com/hellowuxin/vue3-mindmap" target="_blank">GitHub</a>
+      <span @click="updateNode"> Chatmix </span>
+      <span @click="removeNodeText"> remove node 0-3 </span>
     </div>
     <div class="right-top"><span>Props</span></div>
     <mindmap
@@ -20,8 +22,10 @@
       :sharp-corner="checkboxList['sharp-corner'].value"
       :ctm="checkboxList['contextmenu'].value"
       :timetravel="checkboxList['timetravel'].value"
-      @click-button="onClickButton"
       :locale="locale"
+      :updateNode="node"
+      :removeNode="nodeRemove"
+      @editNode="editNode"
     />
     <div class="right-bottom">
       <div>
@@ -48,7 +52,6 @@
 import learn from './learn.json'
 import { defineComponent, reactive, ref } from 'vue'
 import Mindmap from './components/Mindmap'
-import emitter from '@/mitt'
 type checkbox = { [key: string]: { value: boolean, disabled?: boolean } }
 
 export default defineComponent({
@@ -57,6 +60,16 @@ export default defineComponent({
     Mindmap
   },
   setup () {
+    const node = ref({ id: '', name:''})
+    const nodeRemove = ref('')
+    const updateNode = () => {
+      node.value = { id: '0', name:'chatmix'}
+      console.log('update node')
+    }
+    const removeNodeText = () => {
+      nodeRemove.value = '0-3'
+      console.log('remove node')
+    }
     const checkboxList = reactive<checkbox>({
       'center-btn': { value: true },
       'fit-btn': { value: true },
@@ -79,17 +92,19 @@ export default defineComponent({
     const data = ref(learn)
     const locale = ref<'zh' | 'en' | 'ptBR'>('ptBR')
 
-    const onClickButton = (name: String) => console.log('onClickButton',name)
-    /* emitter.on('changeNode', (value) => {
-      console.log('changeNodeChatmix', value)
-    }) */
+    const editNode = (node: Object) => console.log('editNode',node)
+
 
 
     return {
       data,
+      node,
+      nodeRemove,
+      updateNode,
+      removeNodeText,
       checkboxList,
       rangeList,
-      onClickButton,
+      editNode,
       locale
     }
   }

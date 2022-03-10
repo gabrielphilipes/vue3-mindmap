@@ -28,7 +28,6 @@
       :position="contextmenuPos"
       :groups="menu"
       @click-item="onClickMenu"
-      @click-button="onClickButton"
     ></contextmenu>
   </div>
 </template>
@@ -45,7 +44,7 @@ import { fitView, getSize, centerView, next, prev, download, bindForeignDiv } fr
 import { xGap, yGap, branch, scaleExtent, ctm, selection, changeSharpCorner, addNodeBtn, mmprops } from './variable'
 import { wrapperEle, svgEle, gEle, asstSvgEle, foreignEle, foreignDivEle  } from './variable/element'
 import { draw } from './draw'
-import { switchZoom, switchEdit, switchSelect, switchContextmenu, switchDrag, onClickMenu, updateNode } from './listener'
+import { switchZoom, switchEdit, switchSelect, switchContextmenu, switchDrag, onClickMenu } from './listener'
 import Contextmenu from '../Contextmenu.vue'
 import { cloneDeep } from 'lodash'
 import i18next from '../../i18n'
@@ -55,8 +54,16 @@ export default defineComponent({
   components: {
     Contextmenu
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue','editNode'],
   props: {
+    updateNode:{
+      type: Object,
+      default: {}
+    },
+    removeNode:{
+      type: String,
+      default: ''
+    },
     modelValue: {
       type: Array as PropType<Data[]>,
       required: true
@@ -140,9 +147,10 @@ export default defineComponent({
     })
     watch(() => props.zoom, (val) => switchZoom(val))
     watch(() => props.ctm, (val) => switchContextmenu(val))
+    watch(() => props.updateNode,(val) => emitter.emit('updateNode', val) )
+    watch(() => props.removeNode,(val) => emitter.emit('removeNode', val) )
 
-    const onClickButton = (name: String) => context.emit('click-button', name)
-
+    emitter.on('changeNode', (value) => context.emit('editNode', value) )
     return {
       wrapperEle,
       svgEle,
@@ -157,7 +165,6 @@ export default defineComponent({
       menu: ctm.menu,
       contextmenuPos: ctm.pos,
       onClickMenu,
-      onClickButton,
       next,
       prev,
       hasPrev,
