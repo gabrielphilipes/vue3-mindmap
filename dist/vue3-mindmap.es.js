@@ -18337,12 +18337,10 @@ const add = (id2, name) => {
   return d;
 };
 const del = (id2) => {
-  console.log("del", id2);
   mmdata.delete(id2);
   afterOperation();
 };
 const delOne = (id2) => {
-  console.log("delOne", id2);
   mmdata.deleteOne(id2);
   afterOperation();
 };

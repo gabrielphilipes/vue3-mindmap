@@ -128,8 +128,7 @@ export default defineComponent({
       })
       switchZoom(props.zoom)
       switchContextmenu(props.ctm)
-      //console.log('updateNode')
-      //emitter.emit('updateNode', {id:'0-0-0', name:'Chatmix'})
+
     })
     // watch
     watch(() => [props.branch, addNodeBtn.value, props.sharpCorner], () => {
