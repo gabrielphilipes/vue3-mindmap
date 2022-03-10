@@ -52,6 +52,7 @@
 import learn from './learn.json'
 import { defineComponent, reactive, ref } from 'vue'
 import Mindmap from './components/Mindmap'
+// import Mindmap from '../dist/vue3-mindmap.umd'
 type checkbox = { [key: string]: { value: boolean, disabled?: boolean } }
 
 export default defineComponent({
@@ -62,14 +63,7 @@ export default defineComponent({
   setup () {
     const node = ref({ id: '', name:''})
     const nodeRemove = ref('')
-    const updateNode = () => {
-      node.value = { id: '0', name:'chatmix'}
-      console.log('update node')
-    }
-    const removeNodeText = () => {
-      nodeRemove.value = '0-3'
-      console.log('remove node')
-    }
+
     const checkboxList = reactive<checkbox>({
       'center-btn': { value: true },
       'fit-btn': { value: true },
@@ -91,9 +85,6 @@ export default defineComponent({
     })
     const data = ref(learn)
     const locale = ref<'zh' | 'en' | 'ptBR'>('ptBR')
-
-    const editNode = (node: Object) => console.log('editNode',node)
-
 
 
     return {

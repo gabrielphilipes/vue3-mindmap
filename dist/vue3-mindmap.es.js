@@ -11200,8 +11200,10 @@ const asstSvgEle = ref();
 const foreignEle = ref();
 const foreignDivEle = ref();
 emitter.on("updateNode", (value) => {
-  console.log("updateNode", value);
   rename(value.id, value.name);
+});
+emitter.on("removeNode", (value) => {
+  del(value);
 });
 function onMouseEnter() {
   const temp = this.querySelector(`g.${style["add-btn"]}`);
@@ -11304,7 +11306,7 @@ const onClickMenu = (name) => {
       scaleView(true);
       break;
     case "edit":
-      console.log(getSelectedGData().id);
+      emitter.emit("changeNode", getSelectedGData().id);
       break;
     case "add":
       addAndEdit(new MouseEvent("click"), getSelectedGData());
@@ -21360,7 +21362,7 @@ const _sfc_main$1 = defineComponent({
     },
     groups: Array
   },
-  emits: ["click-item", "click-button"],
+  emits: ["click-item"],
   setup(props, context) {
     const show = ref(false);
     const style2 = useCssModule();
@@ -21384,7 +21386,6 @@ const _sfc_main$1 = defineComponent({
     const onClick = (name) => {
       close2();
       context.emit("click-item", name);
-      context.emit("click-button", name);
     };
     return {
       style: style2,
@@ -21437,8 +21438,16 @@ const _sfc_main = defineComponent({
   components: {
     Contextmenu
   },
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "editNode"],
   props: {
+    updateNode: {
+      type: Object,
+      default: {}
+    },
+    removeNode: {
+      type: String,
+      default: ""
+    },
     modelValue: {
       type: Array,
       required: true
@@ -21514,7 +21523,9 @@ const _sfc_main = defineComponent({
     });
     watch(() => props.zoom, (val) => switchZoom(val));
     watch(() => props.ctm, (val) => switchContextmenu(val));
-    const onClickButton = (name) => context.emit("click-button", name);
+    watch(() => props.updateNode, (val) => emitter.emit("updateNode", val));
+    watch(() => props.removeNode, (val) => emitter.emit("removeNode", val));
+    emitter.on("changeNode", (value) => context.emit("editNode", value));
     return {
       wrapperEle,
       svgEle,
@@ -21529,7 +21540,6 @@ const _sfc_main = defineComponent({
       menu: menu$1,
       contextmenuPos: pos,
       onClickMenu,
-      onClickButton,
       next,
       prev,
       hasPrev,
@@ -21624,9 +21634,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       key: 1,
       position: _ctx.contextmenuPos,
       groups: _ctx.menu,
-      onClickItem: _ctx.onClickMenu,
-      onClickButton: _ctx.onClickButton
-    }, null, 8, ["position", "groups", "onClickItem", "onClickButton"])) : createCommentVNode("", true)
+      onClickItem: _ctx.onClickMenu
+    }, null, 8, ["position", "groups", "onClickItem"])) : createCommentVNode("", true)
   ], 2);
 }
 var Mindmap = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
