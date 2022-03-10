@@ -23,12 +23,11 @@ export const pasteItem: Ref<MenuItem> = ref({ name: 'paste', disabled: false })
 export const deleteOneItem: Ref<MenuItem> = ref({ name: 'delete-one', disabled: false })
 export const editItem: Ref<MenuItem> = ref({ name: 'edit', disabled: false })
 
-
 const nodeMenu = computed<MenuItem[][]>(() => [
-  [ addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value ],
+  [ addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value, editItem.value ],
   [ cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value ],
   [ { name: 'selectall', disabled: true } ],
-  [ collapseItem.value, expandItem.value, editItem.value ]
+  [ collapseItem.value, expandItem.value ]
 ].filter((item, index) => {
   if (index === 0 || index === 1) {
     return mmprops.value.edit

@@ -1,10 +1,12 @@
 [
   {
-    "name":"如何学习D3",
+    "name":"Mensagem inicial",
+    "id": 123,
     "children":
     [
       {
-        "name":"预备知识",
+        "name":"Rosa",
+        "color": "pink",
         "children": [
           { "name":"HTML & CSS" },
           { "name":"JavaScript" },

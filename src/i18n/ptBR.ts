@@ -15,6 +15,7 @@ export default {
       selectall: 'Selecionar tudo',
       zoomin: 'Aproximar',
       zoomout: 'Retrair',
+      edit: 'Editar',
       zoomfit: 'Centralizar'
     }
   }

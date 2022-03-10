@@ -1,5 +1,7 @@
 <template>
   <div :class="style['container']">
+
+
     <div :id="style['svg-wrapper']" ref="wrapperEle">
       <svg :class="style['svg']" ref="svgEle">
         <g ref="gEle">
@@ -9,6 +11,8 @@
         </g>
       </svg>
     </div>
+
+
     <svg ref="asstSvgEle" :class="style['asst-svg']"></svg>
     <div :class="[style['button-list'], style['right-bottom']]">
       <button v-if="centerBtn" @click="centerView()"><i :class="style['gps']"></i></button>
@@ -35,13 +39,13 @@ import { defineComponent, onMounted, PropType, watch, watchEffect } from 'vue'
 import { Data, TwoNumber } from './interface'
 import style from './css'
 import * as d3 from './d3'
-import { afterOperation, ImData, mmdata } from './data'
+import { afterOperation, ImData, mmdata, rename } from './data'
 import { hasNext, hasPrev } from './state'
 import { fitView, getSize, centerView, next, prev, download, bindForeignDiv } from './assistant'
 import { xGap, yGap, branch, scaleExtent, ctm, selection, changeSharpCorner, addNodeBtn, mmprops } from './variable'
 import { wrapperEle, svgEle, gEle, asstSvgEle, foreignEle, foreignDivEle  } from './variable/element'
 import { draw } from './draw'
-import { switchZoom, switchEdit, switchSelect, switchContextmenu, switchDrag, onClickMenu } from './listener'
+import { switchZoom, switchEdit, switchSelect, switchContextmenu, switchDrag, onClickMenu, updateNode } from './listener'
 import Contextmenu from '../Contextmenu.vue'
 import { cloneDeep } from 'lodash'
 import i18next from '../../i18n'
@@ -63,7 +67,7 @@ export default defineComponent({
     branch: {
       type: Number,
       default: branch,
-      validator: (val: number) => val >= 1 && val <= 6 
+      validator: (val: number) => val >= 1 && val <= 6
     },
     scaleExtent: {
       type: Object as PropType<TwoNumber>,
@@ -117,6 +121,8 @@ export default defineComponent({
       })
       switchZoom(props.zoom)
       switchContextmenu(props.ctm)
+      //console.log('updateNode')
+      //emitter.emit('updateNode', {id:'0-0-0', name:'Chatmix'})
     })
     // watch
     watch(() => [props.branch, addNodeBtn.value, props.sharpCorner], () => {

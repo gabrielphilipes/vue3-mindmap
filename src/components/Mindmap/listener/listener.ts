@@ -9,6 +9,12 @@ import emitter from '@/mitt'
 import { getDataId, getSiblingGClass } from '../attribute'
 import { MenuEvent } from '../variable/contextmenu'
 
+
+emitter.on('updateNode', (value) => {
+  console.log('updateNode',value)
+  rename(value.id, value.name)
+})
+
 /**
  * @param this - gContent
  */
@@ -109,6 +115,7 @@ export const onClickMenu = (name: MenuEvent): void => {
     case 'zoomfit': fitView(); break
     case 'zoomin': scaleView(true); break
     case 'zoomout': scaleView(true); break
+    case 'edit': console.log(getSelectedGData().id); break
     case 'add': addAndEdit(new MouseEvent('click'), getSelectedGData()); break
     case 'delete': del(getSelectedGData().id); break
     case 'delete-one': delOne(getSelectedGData().id); break

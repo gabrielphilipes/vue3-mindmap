@@ -31,8 +31,11 @@ export const moveSibling = (id: string, referenceId: string, after = 0): void =>
   afterOperation()
 }
 export const add = (id: string, name: string | Data): IsMdata => {
+  // Add emitter
+
   const d = mmdata.add(id, name)
   afterOperation()
+  emitter.emit('changeNode', id)
   return d
 }
 export const del = (id: string): void => {

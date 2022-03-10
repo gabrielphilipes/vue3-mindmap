@@ -20,7 +20,6 @@
       :sharp-corner="checkboxList['sharp-corner'].value"
       :ctm="checkboxList['contextmenu'].value"
       :timetravel="checkboxList['timetravel'].value"
-      @update:model-value="onChange"
       @click-button="onClickButton"
       :locale="locale"
     />
@@ -49,7 +48,7 @@
 import learn from './learn.json'
 import { defineComponent, reactive, ref } from 'vue'
 import Mindmap from './components/Mindmap'
-
+import emitter from '@/mitt'
 type checkbox = { [key: string]: { value: boolean, disabled?: boolean } }
 
 export default defineComponent({
@@ -78,16 +77,18 @@ export default defineComponent({
       'y-gap': { value: 18, min: 0, max: 100 }
     })
     const data = ref(learn)
-    const onChange = () => console.log('update:model-value')
     const locale = ref<'zh' | 'en' | 'ptBR'>('ptBR')
 
-    const onClickButton = (name: String) => console.log(name)
+    const onClickButton = (name: String) => console.log('onClickButton',name)
+    /* emitter.on('changeNode', (value) => {
+      console.log('changeNodeChatmix', value)
+    }) */
+
 
     return {
       data,
       checkboxList,
       rangeList,
-      onChange,
       onClickButton,
       locale
     }
