@@ -18331,9 +18331,10 @@ const moveSibling = (id2, referenceId, after = 0) => {
   afterOperation();
 };
 const add = (id2, name) => {
+  var _a;
   const d = mmdata.add(id2, name);
   afterOperation();
-  emitter.emit("changeNode", id2);
+  emitter.emit("newNode", (_a = d == null ? void 0 : d.id) != null ? _a : d);
   return d;
 };
 const del = (id2) => {
@@ -21438,7 +21439,7 @@ const _sfc_main = defineComponent({
   components: {
     Contextmenu
   },
-  emits: ["update:modelValue", "editNode"],
+  emits: ["update:modelValue", "editNode", "addNode"],
   props: {
     updateNode: {
       type: Object,
@@ -21526,6 +21527,7 @@ const _sfc_main = defineComponent({
     watch(() => props.updateNode, (val) => emitter.emit("updateNode", val));
     watch(() => props.removeNode, (val) => emitter.emit("removeNode", val));
     emitter.on("changeNode", (value) => context.emit("editNode", value));
+    emitter.on("newNode", (value) => context.emit("addNode", value));
     return {
       wrapperEle,
       svgEle,
