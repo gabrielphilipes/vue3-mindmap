@@ -54,7 +54,7 @@ export default defineComponent({
   components: {
     Contextmenu
   },
-  emits: ['update:modelValue','editNode'],
+  emits: ['update:modelValue','editNode','addNode'],
   props: {
     updateNode:{
       type: Object,
@@ -149,7 +149,8 @@ export default defineComponent({
     watch(() => props.updateNode,(val) => emitter.emit('updateNode', val) )
     watch(() => props.removeNode,(val) => emitter.emit('removeNode', val) )
 
-    emitter.on('changeNode', (value) => context.emit('editNode', value) )
+    emitter.on('changeNode', (value) => context.emit('editNode', value))
+    emitter.on('newNode', (value) => context.emit('addNode', value))
     return {
       wrapperEle,
       svgEle,

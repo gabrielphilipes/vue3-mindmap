@@ -26,6 +26,7 @@
       :updateNode="node"
       :removeNode="nodeRemove"
       @editNode="editNode"
+      @addNode="addNode"
     />
     <div class="right-bottom">
       <div>
@@ -63,7 +64,8 @@ export default defineComponent({
   setup () {
     const node = ref({ id: '', name:''})
     const nodeRemove = ref('')
-
+    const editNode = (idNode) => console.log('edit', idNode)
+    const addNode = (idNode) => console.log('add', idNode)
     const checkboxList = reactive<checkbox>({
       'center-btn': { value: true },
       'fit-btn': { value: true },
@@ -91,11 +93,10 @@ export default defineComponent({
       data,
       node,
       nodeRemove,
-      updateNode,
-      removeNodeText,
       checkboxList,
       rangeList,
       editNode,
+      addNode,
       locale
     }
   }

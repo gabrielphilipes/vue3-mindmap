@@ -1,11 +1,11 @@
 [
   {
-    "name":"Mensagem inicial",
+    "name":"PAI",
     "id": 123,
     "children":
     [
       {
-        "name":"Rosa",
+        "name":"Filho Rosa",
         "color": "pink",
         "children": [
           { "name":"HTML & CSS" },
@@ -16,29 +16,29 @@
         ]
       },
       { 
-        "name":"安装",
+        "name":"Filho Azul",
         "collapse": true,
         "children": [
-          { "name": "折叠节点" }
+          { "name": "Azul 1" }
         ]
       },
       {
-        "name":"入门",
+        "name":"verde",
         "children":[
-          { "name":"选择集" },
-          { "name":"test" },
-          { "name":"绑定数据" },
-          { "name":"添加删除元素" },
+          { "name":"verde-0" },
+          { "name":"verde-1" },
+          { "name":"verde-2" },
+          { "name":"verde-3" },
           {
-            "name":"简单图形",
+            "name":"verde-4",
             "children":
             [
-              { "name":"柱形图" },
-              { "name":"折线图" },
-              { "name":"散点图" }]
+              { "name":"verde-4-0" },
+              { "name":"verde-4-1" },
+              { "name":"verde-4-2" }]
           },
-          { "name":"比例尺" },
-          { "name":"生成器" },
+          { "name":"verde-5" },
+          { "name":"verde-6" },
           { "name":"过渡" }
         ],
         "left": true
