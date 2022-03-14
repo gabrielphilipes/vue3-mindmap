@@ -17,15 +17,15 @@ export const addItem: Ref<MenuItem> = ref({ name: 'add', disabled: false })
 export const addParentItem: Ref<MenuItem> = ref({ name: 'add-parent', disabled: false })
 export const addSiblingItem: Ref<MenuItem> = ref({ name: 'add-sibling', disabled: false })
 export const addSiblingBeforeItem: Ref<MenuItem> = ref({ name: 'add-sibling-before', disabled: true })
+export const editItem: Ref<MenuItem> = ref({ name: 'edit', disabled: false })
 export const cutItem: Ref<MenuItem> = ref({ name: 'cut', disabled: false })
 export const copyItem: Ref<MenuItem> = ref({ name: 'copy', disabled: false })
 export const pasteItem: Ref<MenuItem> = ref({ name: 'paste', disabled: false })
 export const deleteOneItem: Ref<MenuItem> = ref({ name: 'delete-one', disabled: false })
-export const editItem: Ref<MenuItem> = ref({ name: 'edit', disabled: false })
 
 const nodeMenu = computed<MenuItem[][]>(() => [
-  [ addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value, editItem.value ],
-  [ cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value ],
+  [ addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value ],
+  [ editItem.value, cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value ],
   [ { name: 'selectall', disabled: true } ],
   [ collapseItem.value, expandItem.value ]
 ].filter((item, index) => {
