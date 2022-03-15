@@ -11563,6 +11563,7 @@ const collapseItem = ref({ name: "collapse", disabled: true });
 const expandItem = ref({ name: "expand", disabled: true });
 const deleteItem = ref({ name: "delete", disabled: false });
 const addItem = ref({ name: "add", disabled: false });
+const editItem = ref({ name: "edit", disabled: false });
 const addParentItem = ref({ name: "add-parent", disabled: false });
 const addSiblingItem = ref({ name: "add-sibling", disabled: false });
 const addSiblingBeforeItem = ref({ name: "add-sibling-before", disabled: true });
@@ -11570,12 +11571,11 @@ const cutItem = ref({ name: "cut", disabled: false });
 const copyItem = ref({ name: "copy", disabled: false });
 const pasteItem = ref({ name: "paste", disabled: false });
 const deleteOneItem = ref({ name: "delete-one", disabled: false });
-const editItem = ref({ name: "edit", disabled: false });
 const nodeMenu = computed(() => [
   [addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value],
-  [cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value],
+  [editItem.value, cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value],
   [{ name: "selectall", disabled: true }],
-  [collapseItem.value, expandItem.value, editItem.value]
+  [collapseItem.value, expandItem.value]
 ].filter((item, index) => {
   if (index === 0 || index === 1) {
     return mmprops.value.edit;
@@ -21283,6 +21283,7 @@ var zh = {
       paste: "\u7C98\u8D34",
       selectall: "\u5168\u9009",
       zoomin: "\u653E\u5927",
+      edit: "Editar",
       zoomout: "\u7F29\u5C0F",
       zoomfit: "\u7F29\u653E\u81F3\u5408\u9002\u5927\u5C0F"
     }
