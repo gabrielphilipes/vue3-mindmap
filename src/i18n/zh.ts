@@ -14,6 +14,7 @@ export default {
       paste: '粘贴',
       selectall: '全选',
       zoomin: '放大',
+      edit: 'Editar',
       zoomout: '缩小',
       zoomfit: '缩放至合适大小'
     }

@@ -14,6 +14,7 @@ export const collapseItem: Ref<MenuItem> = ref({ name: 'collapse', disabled: tru
 export const expandItem: Ref<MenuItem> = ref({ name: 'expand', disabled: true })
 export const deleteItem: Ref<MenuItem> = ref({ name: 'delete', disabled: false })
 export const addItem: Ref<MenuItem> = ref({ name: 'add', disabled: false })
+export const editItem: Ref<MenuItem> = ref({ name: 'edit', disabled: false })
 export const addParentItem: Ref<MenuItem> = ref({ name: 'add-parent', disabled: false })
 export const addSiblingItem: Ref<MenuItem> = ref({ name: 'add-sibling', disabled: false })
 export const addSiblingBeforeItem: Ref<MenuItem> = ref({ name: 'add-sibling-before', disabled: true })
@@ -21,14 +22,13 @@ export const cutItem: Ref<MenuItem> = ref({ name: 'cut', disabled: false })
 export const copyItem: Ref<MenuItem> = ref({ name: 'copy', disabled: false })
 export const pasteItem: Ref<MenuItem> = ref({ name: 'paste', disabled: false })
 export const deleteOneItem: Ref<MenuItem> = ref({ name: 'delete-one', disabled: false })
-export const editItem: Ref<MenuItem> = ref({ name: 'edit', disabled: false })
 
 
 const nodeMenu = computed<MenuItem[][]>(() => [
   [ addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value ],
-  [ cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value ],
+  [ editItem.value, cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value ],
   [ { name: 'selectall', disabled: true } ],
-  [ collapseItem.value, expandItem.value, editItem.value ]
+  [ collapseItem.value, expandItem.value ]
 ].filter((item, index) => {
   if (index === 0 || index === 1) {
     return mmprops.value.edit

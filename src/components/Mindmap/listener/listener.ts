@@ -11,10 +11,12 @@ import { MenuEvent } from '../variable/contextmenu'
 
 
 emitter.on('updateNode', (value) => {
-  rename(value.id, value.name)
+  if(value.length > 0) rename(value.id, value.name)
+
 })
 emitter.on('removeNode', (value) => {
-  del(value)
+  if(value.length > 0) del(value)
+
 })
 
 

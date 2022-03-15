@@ -66,6 +66,8 @@ export default defineComponent({
     const nodeRemove = ref('')
     const editNode = (idNode) => console.log('edit', idNode)
     const addNode = (idNode) => console.log('add', idNode)
+    const updateNode = () => { node.value = {id:'0-1-0', name:'teste 123'} }
+    const removeNodeText = () => nodeRemove.value = '0-2-0'
     const checkboxList = reactive<checkbox>({
       'center-btn': { value: true },
       'fit-btn': { value: true },
@@ -97,6 +99,8 @@ export default defineComponent({
       rangeList,
       editNode,
       addNode,
+      updateNode,
+      removeNodeText,
       locale
     }
   }
