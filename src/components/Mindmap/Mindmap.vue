@@ -146,8 +146,8 @@ export default defineComponent({
     })
     watch(() => props.zoom, (val) => switchZoom(val))
     watch(() => props.ctm, (val) => switchContextmenu(val))
-    watch(() => props.updateNode,(val) => emitter.emit('updateNode', val) )
-    watch(() => props.removeNode,(val) => emitter.emit('removeNode', val) )
+    watch(() => props.updateNode,(val) => emitter.emit('updateNode', val))
+    watch(() => props.removeNode,(val) => emitter.emit('removeNode', val))
 
     emitter.on('changeNode', (value) => context.emit('editNode', value))
     emitter.on('newNode', (value) => context.emit('addNode', value))

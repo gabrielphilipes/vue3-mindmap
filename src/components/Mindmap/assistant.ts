@@ -164,6 +164,7 @@ export const fitView = (): void => {
  * @param ele - 元素
  */
 export const moveView = (ele: Element): void => {
+
   const { svg } = selection
   // 得到d相对于视图左上角的坐标
   if (svg && svgEle.value) {
