@@ -96,6 +96,8 @@ export default defineComponent({
     locale: { type: String as PropType<'zh' | 'en' | 'ptBR'>, default: 'zh' }
   },
   setup (props, context) {
+    // UPDATE VMODEL
+
     // 立即执行
     watchEffect(() => i18next.changeLanguage(props.locale))
     watchEffect(() => emitter.emit('scale-extent', props.scaleExtent))
