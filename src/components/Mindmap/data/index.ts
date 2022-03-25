@@ -35,6 +35,7 @@ export const add = (id: string, name: string | Data): IsMdata => {
 
   const d = mmdata.add(id, name)
   afterOperation()
+  console.log(d)
   emitter.emit('newNode', d?.id ?? d)
   return d
 }
