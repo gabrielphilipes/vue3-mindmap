@@ -11200,7 +11200,7 @@ const asstSvgEle = ref();
 const foreignEle = ref();
 const foreignDivEle = ref();
 emitter.on("updateNode", (value) => {
-  if (value == null ? void 0 : value.id)
+  if (Object.prototype.hasOwnProperty.call(value, "id"))
     rename(value.id, value.name);
 });
 emitter.on("removeNode", (value) => {
@@ -18336,6 +18336,7 @@ const add = (id2, name) => {
   var _a;
   const d = mmdata.add(id2, name);
   afterOperation();
+  console.log(d);
   emitter.emit("newNode", (_a = d == null ? void 0 : d.id) != null ? _a : d);
   return d;
 };
