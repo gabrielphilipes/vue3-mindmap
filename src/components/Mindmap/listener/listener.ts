@@ -122,8 +122,14 @@ export const onClickMenu = (name: MenuEvent): void => {
     case 'zoomout': scaleView(true); break
     case 'edit': emitter.emit('changeNode',getSelectedGData().id); break
     case 'add': addAndEdit(new MouseEvent('click'), getSelectedGData()); break
-    case 'delete': del(getSelectedGData().id); break
-    case 'delete-one': delOne(getSelectedGData().id); break
+    case 'delete': {
+      emitter.emit('removeClickNode', getSelectedGData().id)
+      del(getSelectedGData().id)
+    } break
+    case 'delete-one': {
+      emitter.emit('removeClickNode', getSelectedGData().id)
+      delOne(getSelectedGData().id)
+    } break
     case 'collapse': collapse(getSelectedGData().id); break
     case 'expand': expand(getSelectedGData().id); break
     case 'add-sibling': {
