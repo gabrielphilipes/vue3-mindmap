@@ -11203,7 +11203,7 @@ emitter.on("updateNode", (value) => {
   if (Object.prototype.hasOwnProperty.call(value, "id"))
     rename(value.id, value.name);
 });
-emitter.on("removeNode", (value) => {
+emitter.on("remNode", (value) => {
   if (value.length > 0)
     del(value);
 });
@@ -11308,20 +11308,18 @@ const onClickMenu = (name) => {
       scaleView(true);
       break;
     case "edit":
-      emitter.emit("changeNode", getSelectedGData().id);
+      emitter.emit("editnode", getSelectedGData().id);
       break;
     case "add":
       addAndEdit(new MouseEvent("click"), getSelectedGData());
       break;
     case "delete":
       {
-        emitter.emit("removeClickNode", getSelectedGData().id);
         del(getSelectedGData().id);
       }
       break;
     case "delete-one":
       {
-        emitter.emit("removeClickNode", getSelectedGData().id);
         delOne(getSelectedGData().id);
       }
       break;
@@ -18331,10 +18329,23 @@ const rename = (id2, name) => {
   afterOperation();
 };
 const moveChild = (pid, id2) => {
+  const obj = {
+    id: id2,
+    pid,
+    type: "moveChild"
+  };
+  emitter.emit("movenode", obj);
   mmdata.moveChild(pid, id2);
   afterOperation();
 };
 const moveSibling = (id2, referenceId, after = 0) => {
+  const obj = {
+    id: id2,
+    reference: referenceId,
+    after,
+    type: "moveSibling"
+  };
+  emitter.emit("movenode", obj);
   mmdata.moveSibling(id2, referenceId, after);
   afterOperation();
 };
@@ -18342,15 +18353,29 @@ const add = (id2, name) => {
   var _a;
   const d = mmdata.add(id2, name);
   afterOperation();
-  console.log(d);
-  emitter.emit("newNode", (_a = d == null ? void 0 : d.id) != null ? _a : d);
+  const obj = {
+    id: (_a = d == null ? void 0 : d.id) != null ? _a : d,
+    parent: id2,
+    type: "add"
+  };
+  emitter.emit("addnode", obj);
   return d;
 };
 const del = (id2) => {
+  const obj = {
+    id: id2,
+    type: "del"
+  };
+  emitter.emit("removenode", obj);
   mmdata.delete(id2);
   afterOperation();
 };
 const delOne = (id2) => {
+  const obj = {
+    id: id2,
+    type: "delone"
+  };
+  emitter.emit("removenode", obj);
   mmdata.deleteOne(id2);
   afterOperation();
 };
@@ -18363,16 +18388,34 @@ const collapse = (id2) => {
   afterOperation();
 };
 const addSibling = (id2, name, before = false) => {
+  const obj = {
+    id: id2,
+    name,
+    before,
+    type: "addSibling"
+  };
+  emitter.emit("addnode", obj);
   const d = mmdata.addSibling(id2, name, before);
   afterOperation();
   return d;
 };
 const addParent = (id2, name) => {
+  const obj = {
+    id: id2,
+    name,
+    type: "addParent"
+  };
+  emitter.emit("addnode", obj);
   const d = mmdata.addParent(id2, name);
   afterOperation();
   return d;
 };
 const changeLeft = (id2) => {
+  const obj = {
+    id: id2,
+    type: "changeLeft"
+  };
+  emitter.emit("changenode", obj);
   mmdata.changeLeft(id2);
   afterOperation();
 };
@@ -21449,13 +21492,13 @@ const _sfc_main = defineComponent({
   components: {
     Contextmenu
   },
-  emits: ["update:modelValue", "editNode", "addNode", "remove"],
+  emits: ["update:modelValue", "editNode", "addNode", "removeNode", "moveNode", "changeNode"],
   props: {
-    updateNode: {
+    update: {
       type: Object,
       default: {}
     },
-    removeNode: {
+    remove: {
       type: String,
       default: ""
     },
@@ -21534,11 +21577,13 @@ const _sfc_main = defineComponent({
     });
     watch(() => props.zoom, (val) => switchZoom(val));
     watch(() => props.ctm, (val) => switchContextmenu(val));
-    watch(() => props.updateNode, (val) => emitter.emit("updateNode", val));
-    watch(() => props.removeNode, (val) => emitter.emit("removeNode", val));
-    emitter.on("changeNode", (value) => context.emit("editNode", value));
-    emitter.on("newNode", (value) => context.emit("addNode", value));
-    emitter.on("removeClickNode", (value) => context.emit("remove", value));
+    watch(() => props.update, (val) => emitter.emit("updateNode", val));
+    watch(() => props.remove, (val) => emitter.emit("remNode", val));
+    emitter.on("editnode", (value) => context.emit("editNode", value));
+    emitter.on("addnode", (value) => context.emit("addNode", value));
+    emitter.on("removenode", (value) => context.emit("removeNode", value));
+    emitter.on("movenode", (value) => context.emit("moveNode", value));
+    emitter.on("changenode", (value) => context.emit("changeNode", value));
     return {
       wrapperEle,
       svgEle,
