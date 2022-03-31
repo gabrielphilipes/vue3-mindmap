@@ -14,7 +14,7 @@ emitter.on('updateNode', (value) => {
   if (Object.prototype.hasOwnProperty.call(value, 'id')) rename(value.id, value.name);
 
 })
-emitter.on('removeNode', (value) => {
+emitter.on('remNode', (value) => {
   if(value.length > 0) del(value)
 
 })
@@ -120,14 +120,12 @@ export const onClickMenu = (name: MenuEvent): void => {
     case 'zoomfit': fitView(); break
     case 'zoomin': scaleView(true); break
     case 'zoomout': scaleView(true); break
-    case 'edit': emitter.emit('changeNode',getSelectedGData().id); break
+    case 'edit': emitter.emit('editnode',getSelectedGData().id); break
     case 'add': addAndEdit(new MouseEvent('click'), getSelectedGData()); break
     case 'delete': {
-      emitter.emit('removeClickNode', getSelectedGData().id)
       del(getSelectedGData().id)
     } break
     case 'delete-one': {
-      emitter.emit('removeClickNode', getSelectedGData().id)
       delOne(getSelectedGData().id)
     } break
     case 'collapse': collapse(getSelectedGData().id); break

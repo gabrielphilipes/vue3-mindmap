@@ -23,10 +23,13 @@
       :ctm="checkboxList['contextmenu'].value"
       :timetravel="checkboxList['timetravel'].value"
       :locale="locale"
-      :updateNode="node"
-      :removeNode="nodeRemove"
+      :update="node"
+      :remove="nodeRemove"
       @editNode="editNode"
       @addNode="addNode"
+      @removeNode="removeNode"
+      @moveNode="moveNode"
+      @changeNode="changeNode"
     />
     <div class="right-bottom">
       <div>
@@ -65,7 +68,10 @@ export default defineComponent({
     const node = ref({ id: '', name:''})
     const nodeRemove = ref('')
     const editNode = (idNode) => console.log('edit', idNode)
-    const addNode = (idNode) => console.log('add', idNode)
+    const addNode = (value) => console.log(value)
+    const moveNode = (value) => console.log(value)
+    const changeNode = (value) => console.log(value)
+    const removeNode = (value) => console.log(value)
     const updateNode = () => { node.value = {id:'0-1-0', name:'teste 123'} }
     const removeNodeText = () => nodeRemove.value = '0-2-0'
     const checkboxList = reactive<checkbox>({
@@ -97,11 +103,14 @@ export default defineComponent({
       nodeRemove,
       checkboxList,
       rangeList,
+      locale,
       editNode,
       addNode,
       updateNode,
+      removeNode,
+      moveNode,
+      changeNode,
       removeNodeText,
-      locale
     }
   }
 })

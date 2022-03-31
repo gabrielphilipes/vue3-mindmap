@@ -23,28 +23,54 @@ export const rename = (id: string, name: string): void => {
   afterOperation()
 }
 export const moveChild = (pid: string, id: string): void => {
+  const obj = {
+    id : id,
+    pid: pid,
+    type: 'moveChild',
+  }
+  emitter.emit('movenode', obj)
   mmdata.moveChild(pid, id)
   afterOperation()
 }
 export const moveSibling = (id: string, referenceId: string, after = 0): void => {
+  const obj = {
+    id : id,
+    reference: referenceId,
+    after: after,
+    type: 'moveSibling',
+  }
+  emitter.emit('movenode', obj)
   mmdata.moveSibling(id, referenceId, after)
   afterOperation()
 }
 export const add = (id: string, name: string | Data): IsMdata => {
   // Add emitter
-
   const d = mmdata.add(id, name)
   afterOperation()
-  console.log(d)
-  emitter.emit('newNode', d?.id ?? d)
+  const obj = {
+    id : d?.id ?? d,
+    parent: id,
+    type: 'add',
+  }
+  emitter.emit('addnode', obj)
   return d
 }
 
 export const del = (id: string): void => {
+  const obj = {
+    id : id,
+    type: 'del',
+  }
+  emitter.emit('removenode', obj)
   mmdata.delete(id)
   afterOperation()
 }
 export const delOne = (id: string): void => {
+  const obj = {
+    id : id,
+    type: 'delone',
+  }
+  emitter.emit('removenode', obj)
   mmdata.deleteOne(id)
   afterOperation()
 }
@@ -57,16 +83,34 @@ export const collapse = (id: string): void => {
   afterOperation()
 }
 export const addSibling = (id: string, name: string, before = false): IsMdata => {
+  const obj = {
+    id : id,
+    name: name,
+    before: before,
+    type: 'addSibling',
+  }
+  emitter.emit('addnode', obj)
   const d = mmdata.addSibling(id, name, before)
   afterOperation()
   return d
 }
 export const addParent = (id: string, name: string): IsMdata => {
+  const obj = {
+    id : id,
+    name: name,
+    type: 'addParent',
+  }
+  emitter.emit('addnode', obj)
   const d = mmdata.addParent(id, name)
   afterOperation()
   return d
 }
 export const changeLeft = (id: string): void => {
+  const obj = {
+    id : id,
+    type: 'changeLeft',
+  }
+  emitter.emit('changenode', obj)
   mmdata.changeLeft(id)
   afterOperation()
 }

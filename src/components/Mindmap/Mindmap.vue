@@ -54,13 +54,13 @@ export default defineComponent({
   components: {
     Contextmenu
   },
-  emits: ['update:modelValue','editNode','addNode', 'remove'],
+  emits: ['update:modelValue','editNode','addNode', 'removeNode', 'moveNode', 'changeNode'],
   props: {
-    updateNode:{
+    update:{
       type: Object,
       default: {}
     },
-    removeNode:{
+    remove:{
       type: String,
       default: ''
     },
@@ -148,12 +148,14 @@ export default defineComponent({
     })
     watch(() => props.zoom, (val) => switchZoom(val))
     watch(() => props.ctm, (val) => switchContextmenu(val))
-    watch(() => props.updateNode,(val) => emitter.emit('updateNode', val))
-    watch(() => props.removeNode,(val) => emitter.emit('removeNode', val))
+    watch(() => props.update,(val) => emitter.emit('updateNode', val))
+    watch(() => props.remove,(val) => emitter.emit('remNode', val))
 
-    emitter.on('changeNode', (value) => context.emit('editNode', value))
-    emitter.on('newNode', (value) => context.emit('addNode', value))
-    emitter.on('removeClickNode', (value) => context.emit('remove', value))
+    emitter.on('editnode', (value) => context.emit('editNode', value))
+    emitter.on('addnode', (value) => context.emit('addNode', value))
+    emitter.on('removenode', (value) => context.emit('removeNode', value))
+    emitter.on('movenode', (value) => context.emit('moveNode', value))
+    emitter.on('changenode', (value) => context.emit('changeNode', value))
     return {
       wrapperEle,
       svgEle,
