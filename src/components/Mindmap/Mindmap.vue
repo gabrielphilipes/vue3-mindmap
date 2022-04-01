@@ -156,7 +156,7 @@ export default defineComponent({
     emitter.on('removenode', (value) => context.emit('removeNode', value))
     emitter.on('movenode', (value) => context.emit('moveNode', value))
     emitter.on('changenode', (value) => context.emit('changeNode', value))
-    emitter.on('copynode', (value) => context.emit('copyNode'))
+    emitter.on('copynode', (value) => context.emit('copyNode', value))
     return {
       wrapperEle,
       svgEle,
