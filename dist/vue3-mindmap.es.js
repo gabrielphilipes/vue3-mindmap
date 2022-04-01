@@ -11363,7 +11363,7 @@ const onClickMenu = (name) => {
         if (rawdata) {
           navigator.clipboard.writeText(JSON.stringify(rawdata));
         }
-        del(id2);
+        del(id2, "cut");
       }
       break;
     case "copy":
@@ -11373,6 +11373,7 @@ const onClickMenu = (name) => {
         if (rawdata) {
           navigator.clipboard.writeText(JSON.stringify(rawdata));
         }
+        emitter.emit("copynode");
       }
       break;
     case "paste":
@@ -18356,15 +18357,17 @@ const add = (id2, name) => {
   const obj = {
     id: (_a = d == null ? void 0 : d.id) != null ? _a : d,
     parent: id2,
-    type: "add"
+    type: "add",
+    map: d
   };
   emitter.emit("addnode", obj);
   return d;
 };
-const del = (id2) => {
+const del = (id2, flag = "del") => {
   const obj = {
     id: id2,
-    type: "del"
+    type: "del",
+    flag
   };
   emitter.emit("removenode", obj);
   mmdata.delete(id2);
@@ -21492,7 +21495,7 @@ const _sfc_main = defineComponent({
   components: {
     Contextmenu
   },
-  emits: ["update:modelValue", "editNode", "addNode", "removeNode", "moveNode", "changeNode"],
+  emits: ["update:modelValue", "editNode", "addNode", "removeNode", "moveNode", "changeNode", "copyNode"],
   props: {
     update: {
       type: Object,
@@ -21584,6 +21587,7 @@ const _sfc_main = defineComponent({
     emitter.on("removenode", (value) => context.emit("removeNode", value));
     emitter.on("movenode", (value) => context.emit("moveNode", value));
     emitter.on("changenode", (value) => context.emit("changeNode", value));
+    emitter.on("copynode", (value) => context.emit("copyNode"));
     return {
       wrapperEle,
       svgEle,
