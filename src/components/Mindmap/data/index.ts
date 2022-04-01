@@ -51,15 +51,17 @@ export const add = (id: string, name: string | Data): IsMdata => {
     id : d?.id ?? d,
     parent: id,
     type: 'add',
+    map: d,
   }
   emitter.emit('addnode', obj)
   return d
 }
 
-export const del = (id: string): void => {
+export const del = (id: string, flag = 'del'): void => {
   const obj = {
     id : id,
     type: 'del',
+    flag: flag,
   }
   emitter.emit('removenode', obj)
   mmdata.delete(id)

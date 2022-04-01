@@ -152,7 +152,7 @@ export const onClickMenu = (name: MenuEvent): void => {
         // navigator.clipboard.write
         navigator.clipboard.writeText(JSON.stringify(rawdata))
       }
-      del(id)
+      del(id,'cut')
     } break
     case 'copy': {
       const seleData = getSelectedGData()
@@ -161,6 +161,7 @@ export const onClickMenu = (name: MenuEvent): void => {
         // navigator.clipboard.write
         navigator.clipboard.writeText(JSON.stringify(rawdata))
       }
+      emitter.emit('copynode')
     } break
     case 'paste': {
       const seleData = getSelectedGData()
