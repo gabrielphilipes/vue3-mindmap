@@ -11373,7 +11373,7 @@ const onClickMenu = (name) => {
         if (rawdata) {
           navigator.clipboard.writeText(JSON.stringify(rawdata));
         }
-        emitter.emit("copynode");
+        emitter.emit("copynode", seleData.id);
       }
       break;
     case "paste":
@@ -21587,7 +21587,7 @@ const _sfc_main = defineComponent({
     emitter.on("removenode", (value) => context.emit("removeNode", value));
     emitter.on("movenode", (value) => context.emit("moveNode", value));
     emitter.on("changenode", (value) => context.emit("changeNode", value));
-    emitter.on("copynode", (value) => context.emit("copyNode"));
+    emitter.on("copynode", (value) => context.emit("copyNode", value));
     return {
       wrapperEle,
       svgEle,
