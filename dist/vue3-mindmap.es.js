@@ -11205,7 +11205,7 @@ emitter.on("updateNode", (value) => {
 });
 emitter.on("remNode", (value) => {
   if (value.length > 0)
-    del(value);
+    delOne(value);
 });
 function onMouseEnter() {
   const temp = this.querySelector(`g.${style["add-btn"]}`);
