@@ -28,6 +28,7 @@ export function onMouseEnter (this: SVGGElement): void {
   if (temp) { temp.style.opacity = '1' }
 }
 
+
 /**
  * @param this - gContent
  */
@@ -53,6 +54,7 @@ export const onSelect = (e: MouseEvent, d: Mdata): void => {
  * @param this - gText
  */
 export function onEdit (this: SVGGElement, _e: MouseEvent, d: Mdata): void {
+// TODO onEdit
   const gNode = this.parentNode?.parentNode as SVGGElement
   const { foreign } = selection
   if (editFlag && foreign && foreignDivEle.value) {
@@ -71,10 +73,22 @@ export function onEdit (this: SVGGElement, _e: MouseEvent, d: Mdata): void {
     if (gContent) {
       moveView(gContent)
     }
+    // TODO adicionei esse metodo para emitir o evento de edicao
+    onEditBlurChatMix()
   }
 }
-
+export const onEditBlurChatMix = (): void => {
+  document.getElementsByClassName(style.edited)[0]?.classList.remove(style.edited, style.selected)
+  if (foreignEle.value && foreignDivEle.value) {
+    foreignEle.value.style.display = 'none'
+    const id = foreignEle.value.getAttribute('data-id')
+    const oldname = foreignEle.value.getAttribute('data-name')
+    //TODO emito o evento para a edicao do item
+    if(oldname != '') emitter.emit('editnode',id)
+  }
+}
 export const onEditBlur = (): void => {
+
   document.getElementsByClassName(style.edited)[0]?.classList.remove(style.edited, style.selected)
 
   if (foreignEle.value && foreignDivEle.value) {
@@ -89,6 +103,7 @@ export const onEditBlur = (): void => {
 }
 
 export const onContextmenu = (e: MouseEvent): void => {
+
   e.preventDefault()
   if (!wrapperEle.value) { return }
   const relativePos = getRelativePos(wrapperEle.value, e)
@@ -116,6 +131,7 @@ export const onContextmenu = (e: MouseEvent): void => {
 }
 
 export const onClickMenu = (name: MenuEvent): void => {
+
   switch (name) {
     case 'zoomfit': fitView(); break
     case 'zoomin': scaleView(true); break
@@ -186,6 +202,7 @@ export const onClickMenu = (name: MenuEvent): void => {
  * 选中节点进入编辑模式
  */
 export function edit (d: Mdata, e = new MouseEvent('click')): void {
+
   const { g } = selection
   if (!g) { return }
   const gText = g.selectAll<SVGGElement, Mdata>(`g[data-id='${getDataId(d)}'] > g.${style.content} > g.${style.text}`)

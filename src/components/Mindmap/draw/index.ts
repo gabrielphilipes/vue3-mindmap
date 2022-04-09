@@ -51,9 +51,12 @@ const bindEvent = (g: SelectionG, isRoot: boolean) => {
     const gText = g.select<SVGGElement>(`:scope > g.${style.content} > g.${style.text}`)
     gText.on('mousedown', onSelect)
     if (mmprops.value.drag && !isRoot) { drag(gText) }
-    if (mmprops.value.edit) { gText.on('click', onEdit) }
+    if (mmprops.value.edit) {
+       gText.on('click', onEdit)
+      }
   }
   if (addNodeBtn.value) {
+
     g.select<SVGGElement>(`:scope > g.${style.content}`)
       .on('mouseenter', onMouseEnter)
       .on('mouseleave', onMouseLeave)

@@ -16,10 +16,12 @@ export const switchZoom = (zoomable: boolean): void => {
 }
 
 export const switchEdit = (editable: boolean): void => {
+
   const { g } = selection
   if (!foreignDivEle.value || !g) { return }
   const gText = g.selectAll<SVGGElement, Mdata>(`g.${style.text}`)
   if (editable) {
+
     gText.on('click', onEdit)
   } else {
     gText.on('click', null)
@@ -27,6 +29,8 @@ export const switchEdit = (editable: boolean): void => {
 }
 
 export const switchSelect = (selectable: boolean): void => {
+
+
   const { g } = selection
   if (!g) { return }
   const gText = g.selectAll<SVGGElement, Mdata>(`g.${style.text}`)
