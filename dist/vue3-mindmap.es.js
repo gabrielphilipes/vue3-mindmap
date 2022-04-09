@@ -11247,8 +11247,20 @@ function onEdit(_e, d) {
     if (gContent) {
       moveView(gContent);
     }
+    onEditBlurChatMix();
   }
 }
+const onEditBlurChatMix = () => {
+  var _a;
+  (_a = document.getElementsByClassName(style.edited)[0]) == null ? void 0 : _a.classList.remove(style.edited, style.selected);
+  if (foreignEle.value && foreignDivEle.value) {
+    foreignEle.value.style.display = "none";
+    const id2 = foreignEle.value.getAttribute("data-id");
+    const oldname = foreignEle.value.getAttribute("data-name");
+    if (oldname != "")
+      emitter.emit("editnode", id2);
+  }
+};
 const onEditBlur = () => {
   var _a;
   (_a = document.getElementsByClassName(style.edited)[0]) == null ? void 0 : _a.classList.remove(style.edited, style.selected);
