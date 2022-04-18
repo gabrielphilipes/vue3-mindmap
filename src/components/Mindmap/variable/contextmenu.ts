@@ -25,9 +25,8 @@ export const deleteOneItem: Ref<MenuItem> = ref({ name: 'delete-one', disabled: 
 
 
 const nodeMenu = computed<MenuItem[][]>(() => [
-  [ addItem.value, addParentItem.value, addSiblingItem.value, addSiblingBeforeItem.value ],
-  [ editItem.value, cutItem.value, copyItem.value, pasteItem.value, deleteItem.value, deleteOneItem.value ],
-  [ { name: 'selectall', disabled: true } ],
+  [ addItem.value ],
+  [ editItem.value, cutItem.value, copyItem.value, pasteItem.value, deleteItem.value],
   [ collapseItem.value, expandItem.value ]
 ].filter((item, index) => {
   if (index === 0 || index === 1) {

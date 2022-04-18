@@ -5,6 +5,7 @@ import { selection, zoom, drag } from '../variable'
 import { foreignDivEle, wrapperEle } from '../variable/element'
 
 export const switchZoom = (zoomable: boolean): void => {
+
   const { svg } = selection
   if (!svg) { return }
   if (zoomable) {
