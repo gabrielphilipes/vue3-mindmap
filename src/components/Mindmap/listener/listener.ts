@@ -41,7 +41,6 @@ export const onZoomMove = (e: d3.D3ZoomEvent<SVGSVGElement, null>): void => {
 
   const { g } = selection
   if (!g) { return }
-  console.log(g)
   zoomTransform.value = e.transform
   g.attr('transform', e.transform.toString())
 }
