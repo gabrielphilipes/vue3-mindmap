@@ -11224,7 +11224,6 @@ const onZoomMove = (e2) => {
   if (!g2) {
     return;
   }
-  console.log(g2);
   zoomTransform.value = e2.transform;
   g2.attr("transform", e2.transform.toString());
 };
