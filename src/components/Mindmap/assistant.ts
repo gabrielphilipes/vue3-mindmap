@@ -144,7 +144,6 @@ export const centerView = (): void => {
  * 缩放至合适大小并移动至全部可见
  */
 export const fitView = (): void => {
-  console.log('fitView')
   const { svg } = selection
   if (!svg || !gEle.value || !svgEle.value) { return }
   const gBB = gEle.value.getBBox()
@@ -196,7 +195,6 @@ export const moveView = (ele: Element): void => {
  */
 export const scaleView = (flag: boolean): void => {
   const { svg } = selection
-  console.log(svg)
   if (!svg) { return }
   zoom.scaleBy(svg, flag ? 1.1 : 0.9)
 }
