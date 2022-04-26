@@ -17231,7 +17231,6 @@ const centerView = () => {
   zoom.translateTo(svg2, 0 + data.width / 2, 0 + data.height / 2);
 };
 const fitView = () => {
-  console.log("fitView");
   const { svg: svg2 } = selection;
   if (!svg2 || !gEle.value || !svgEle.value) {
     return;
@@ -17274,7 +17273,6 @@ const moveView = (ele) => {
 };
 const scaleView = (flag) => {
   const { svg: svg2 } = selection;
-  console.log(svg2);
   if (!svg2) {
     return;
   }
