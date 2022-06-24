@@ -5,7 +5,7 @@ export default {
       expand: 'Abrir',
       delete: 'Excluir',
       'delete-one': 'Excluir único nó',
-      add: 'Adicionar nó filho',
+      add: 'Adicionar ação',
       'add-parent': 'Adicionar nó antes',
       'add-sibling': 'Adicionar nó abaixo',
       'add-sibling-before': 'Adicionar nó acima',
