@@ -11205,7 +11205,7 @@ emitter.on("updateNode", (value) => {
 });
 emitter.on("remNode", (value) => {
   if (value.length > 0)
-    delOne(value);
+    del(value);
 });
 function onMouseEnter() {
   const temp = this.querySelector(`g.${style["add-btn"]}`);
@@ -21383,7 +21383,7 @@ var ptBR = {
       expand: "Abrir",
       delete: "Excluir",
       "delete-one": "Excluir \xFAnico n\xF3",
-      add: "Adicionar n\xF3 filho",
+      add: "Adicionar a\xE7\xE3o",
       "add-parent": "Adicionar n\xF3 antes",
       "add-sibling": "Adicionar n\xF3 abaixo",
       "add-sibling-before": "Adicionar n\xF3 acima",
@@ -21506,7 +21506,7 @@ const _sfc_main = defineComponent({
   components: {
     Contextmenu
   },
-  emits: ["update:modelValue", "editNode", "addNode", "removeNode", "moveNode", "changeNode", "copyNode"],
+  emits: ["update:modelValue", "editNode", "addNode", "removeNode", "moveNode", "changeNode", "copyNode", "prev"],
   props: {
     update: {
       type: Object,
@@ -21515,6 +21515,10 @@ const _sfc_main = defineComponent({
     remove: {
       type: String,
       default: ""
+    },
+    prev: {
+      type: String,
+      default: "0"
     },
     modelValue: {
       type: Array,
@@ -21593,6 +21597,12 @@ const _sfc_main = defineComponent({
     watch(() => props.ctm, (val) => switchContextmenu(val));
     watch(() => props.update, (val) => emitter.emit("updateNode", val));
     watch(() => props.remove, (val) => emitter.emit("remNode", val));
+    watch(() => props.prev, (val) => {
+      if (val === "1") {
+        prev();
+        context.emit("prev", "0");
+      }
+    });
     emitter.on("editnode", (value) => context.emit("editNode", value));
     emitter.on("addnode", (value) => context.emit("addNode", value));
     emitter.on("removenode", (value) => context.emit("removeNode", value));
