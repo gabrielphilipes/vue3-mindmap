@@ -54,7 +54,7 @@ export default defineComponent({
   components: {
     Contextmenu
   },
-  emits: ['update:modelValue','editNode','addNode', 'removeNode', 'moveNode', 'changeNode', 'copyNode'],
+  emits: ['update:modelValue','editNode','addNode', 'removeNode', 'moveNode', 'changeNode', 'copyNode', 'prev'],
   props: {
     update:{
       type: Object,
@@ -63,6 +63,10 @@ export default defineComponent({
     remove:{
       type: String,
       default: ''
+    },
+    prev: {
+      type: String,
+      default: '0'
     },
     modelValue: {
       type: Array as PropType<Data[]>,
@@ -150,6 +154,12 @@ export default defineComponent({
     watch(() => props.ctm, (val) => switchContextmenu(val))
     watch(() => props.update,(val) => emitter.emit('updateNode', val))
     watch(() => props.remove,(val) => emitter.emit('remNode', val))
+    watch(() => props.prev, (val) => {
+      if (val === '1') {
+        prev()
+        context.emit('prev', '0')
+      }
+    })
 
     emitter.on('editnode', (value) => context.emit('editNode', value))
     emitter.on('addnode', (value) => context.emit('addNode', value))

@@ -15,8 +15,7 @@ emitter.on('updateNode', (value) => {
 
 })
 emitter.on('remNode', (value) => {
-  if(value.length > 0) delOne(value)
-
+  if(value.length > 0) del(value)
 })
 
 

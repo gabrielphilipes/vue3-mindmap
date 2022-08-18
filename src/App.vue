@@ -4,6 +4,7 @@
       <a href="https://github.com/hellowuxin/vue3-mindmap" target="_blank">GitHub</a>
       <span @click="updateNode"> Chatmix </span>
       <span @click="removeNodeText"> remove node 0-3 </span>
+      <span @click="handlePrev"> -Prev- </span>
     </div>
     <div class="right-top"><span>Props</span></div>
     <mindmap
@@ -25,11 +26,13 @@
       :locale="locale"
       :update="node"
       :remove="nodeRemove"
+      :prev="nodePrev"
       @editNode="editNode"
       @addNode="addNode"
       @removeNode="removeNode"
       @moveNode="moveNode"
       @changeNode="changeNode"
+      @prev="nodePrev = '0'"
     />
     <div class="right-bottom">
       <div>
@@ -67,6 +70,7 @@ export default defineComponent({
   setup () {
     const node = ref({ id: '', name:''})
     const nodeRemove = ref('')
+    const nodePrev = ref('0')
     const editNode = (idNode) => console.log('edit', idNode)
     const addNode = (value) => console.log(value)
     const moveNode = (value) => console.log(value)
@@ -95,9 +99,16 @@ export default defineComponent({
     })
     const data = ref(learn)
     const locale = ref<'zh' | 'en' | 'ptBR'>('ptBR')
-
-
+    const handlePrev = () => {
+      nodePrev.value = '1'
+    }
+    const handleResetPrev = () => {
+      nodePrev.value = '0'
+    }
     return {
+      nodePrev,
+      handlePrev,
+      handleResetPrev,
       data,
       node,
       nodeRemove,
